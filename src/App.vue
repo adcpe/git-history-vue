@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    Hello World!
+    <CommitHistory :commits="commits" />
   </div>
 </template>
 
 <script>
+import CommitHistory from './components/CommitHistory';
+import { getCommitHistory } from './utils/apiCalls';
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    CommitHistory,
+  },
+  data() {
+    return {
+      commits: getCommitHistory(),
+    };
+  },
 };
 </script>
 
