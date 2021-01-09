@@ -12,3 +12,10 @@ export default {
   props: ['url', 'username', 'repository'],
 };
 </script>
+
+<style scoped>
+h1 {
+  font-size: 1.5rem;
+  text-align: left;
+}
+</style>
