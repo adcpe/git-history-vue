@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container-md">
-      <Title :url="url" :owner="owner" :repository="repository" />
+    <Title :url="url" :owner="owner" :repository="repository" />
     <CommitHistory :commits="commits" />
   </div>
 </template>
@@ -10,6 +10,9 @@ import Title from './components/Title';
 import CommitHistory from './components/CommitHistory';
 import { getFromGithub } from './utils/apiCalls';
 
+const owner = 'andres-dc';
+const repository = 'ftf-test';
+
 export default {
   name: 'App',
   components: {
@@ -18,20 +21,11 @@ export default {
   },
   data() {
     return {
-      owner: 'andres-dc',
-      repository: 'ftf-test',
-      commits: '',
-      url: '',
+      owner: owner,
+      repository: repository,
+      commits: getFromGithub('repos', owner, repository, 'commits'),
+      url: `https://github.com/${owner}/${repository}`,
     };
-  },
-  created() {
-    this.commits = getFromGithub(
-      'repos',
-      this.owner,
-      this.repository,
-      'commits'
-    );
-    this.url = `https://github.com/${this.owner}/${this.repository}/`;
   },
 };
 </script>
