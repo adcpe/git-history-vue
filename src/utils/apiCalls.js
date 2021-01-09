@@ -8,13 +8,13 @@ const axiosConfig = {
 };
 
 const baseURL = 'https://api.github.com/repos';
-const username = '/andres-dc';
-const repository = '/ftf-test';
+const username = 'andres-dc';
+const repository = 'ftf-test';
 const commits = '/commits';
 
 function getCommitHistory() {
-  const path = `${baseURL}${username}${repository}${commits}`;
+  const path = `${baseURL}/${username}/${repository}${commits}`;
   return axios(path, axiosConfig);
 }
 
-export { getCommitHistory };
+export { getCommitHistory, username, repository };

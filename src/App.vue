@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+    <h1>Commit history of {{ username }}/{{ repository }}</h1>
     <CommitHistory :commits="commits" />
   </div>
 </template>
 
 <script>
 import CommitHistory from './components/CommitHistory';
-import { getCommitHistory } from './utils/apiCalls';
+import { getCommitHistory, username, repository } from './utils/apiCalls';
 
 export default {
   name: 'App',
@@ -16,6 +16,8 @@ export default {
   data() {
     return {
       commits: getCommitHistory(),
+      username: username,
+      repository: repository,
     };
   },
 };
