@@ -61,13 +61,17 @@ export default {
         months[clientDate.getUTCMonth()]
       } ${clientDate.getUTCDate()}, ${clientDate.getUTCFullYear()}`;
 
-      const time = `${clientDate.getUTCHours()}:${clientDate.getUTCMinutes()}`;
+      const time = `${this.formatTime(
+        clientDate.getUTCHours()
+      )}:${this.formatTime(clientDate.getUTCMinutes())}`;
 
       return `${mdy} at ${time}`;
     },
     trimSHA(sha) {
       return sha.slice(0, 7);
     },
+    formatTime(num) {
+      return num <= 9 ? `0${num}` : `${num}`;
   },
   beforeMount() {
     this.commits.then((res) => (this.data = res.data));
