@@ -39,7 +39,9 @@ export default {
   },
   methods: {
     formatDate(date) {
-      const newDate = new Date(Date.parse(date));
+      const newDate = Date.parse(date);
+      const offset = new Date(newDate).getTimezoneOffset() * 60 * 1000;
+      const clientDate = new Date(newDate - offset);
       const months = [
         'Jan',
         'Feb',
@@ -56,10 +58,10 @@ export default {
       ];
 
       const mdy = `${
-        months[newDate.getUTCMonth()]
-      } ${newDate.getUTCDate()}, ${newDate.getUTCFullYear()}`;
+        months[clientDate.getUTCMonth()]
+      } ${clientDate.getUTCDate()}, ${clientDate.getUTCFullYear()}`;
 
-      const time = `${newDate.getUTCHours()}:${newDate.getUTCMinutes()}`;
+      const time = `${clientDate.getUTCHours()}:${clientDate.getUTCMinutes()}`;
 
       return `${mdy} at ${time}`;
     },
