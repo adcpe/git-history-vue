@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container-md">
-    <Title :url="url" :username="username" :repository="repository" />
+      <Title :url="url" :owner="owner" :repository="repository" />
     <CommitHistory :commits="commits" />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      username: 'andres-dc',
+      owner: 'andres-dc',
       repository: 'ftf-test',
       commits: '',
       url: '',
@@ -27,11 +27,11 @@ export default {
   created() {
     this.commits = getFromGithub(
       'repos',
-      this.username,
+      this.owner,
       this.repository,
       'commits'
     );
-    this.url = `https://github.com/${this.username}/${this.repository}/`;
+    this.url = `https://github.com/${this.owner}/${this.repository}/`;
   },
 };
 </script>
