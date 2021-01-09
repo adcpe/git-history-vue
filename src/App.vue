@@ -1,22 +1,19 @@
 <template>
   <div id="app" class="container-md">
-    <h1>
-      Commit history of
-      <a :href="url" target="_blank" rel="noopener noreferrer"
-        ><b>{{ username }}/{{ repository }}</b></a
-      >
-    </h1>
+    <Title :url="url" :username="username" :repository="repository" />
     <CommitHistory :commits="commits" />
   </div>
 </template>
 
 <script>
+import Title from './components/Title';
 import CommitHistory from './components/CommitHistory';
 import { getCommitHistory, username, repository } from './utils/apiCalls';
 
 export default {
   name: 'App',
   components: {
+    Title,
     CommitHistory,
   },
   data() {
