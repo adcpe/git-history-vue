@@ -2,12 +2,14 @@
   <div id="app" class="container my-4">
     <Title :url="url" :owner="owner" :repository="repository" />
     <CommitHistory :commits="commits" />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Title from './components/Title';
 import CommitHistory from './components/CommitHistory';
+import Footer from './components/Footer';
 import { getFromGithub } from './utils/apiCalls';
 
 const owner = 'andres-dc';
@@ -18,6 +20,7 @@ export default {
   components: {
     Title,
     CommitHistory,
+    Footer,
   },
   data() {
     return {
