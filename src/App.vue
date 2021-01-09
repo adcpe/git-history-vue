@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container my-4">
+  <div id="app" class="container mt-4">
     <Title :url="url" :owner="owner" :repository="repository" />
     <CommitHistory :commits="commits" />
     <Footer />
