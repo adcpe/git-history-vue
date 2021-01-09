@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container mt-4">
-    <Title :url="url" :owner="owner" :repository="repository" />
-    <CommitHistory :commits="commits" />
+    <Title :url="url" :owner="datos.owner" :repository="datos.name" />
+    <CommitHistory :commits="datos.commits" />
     <Footer />
   </div>
 </template>
@@ -24,11 +24,19 @@ export default {
   },
   data() {
     return {
-      owner: owner,
-      repository: repository,
-      commits: getFromGithub('repos', owner, repository, 'commits'),
+      datos: {
+        owner: null,
+        name: null,
+        commits: [],
+      },
       url: `https://github.com/${owner}/${repository}`,
     };
+  },
+  async created() {
+    await getFromGithub('repos', owner, repository).then((res) => {
+      this.datos.owner = res.data.owner.login;
+      this.datos.name = res.data.name;
+    });
   },
 };
 </script>

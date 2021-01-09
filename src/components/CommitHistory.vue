@@ -3,14 +3,14 @@
     <Commit
       class="list-group-item list-group-item-action text-start
     align-middle"
-      v-for="(commit, i) in data"
+      v-for="(commit, i) in commits"
       :key="i"
-      :commitURL="commit.html_url"
-      :message="commit.commit.message"
-      :user="commit.author.login"
-      :userURL="commit.author.html_url"
-      :userAvatarURL="commit.author.avatar_url"
-      :date="formatDate(commit.commit.author.date)"
+      :commitURL="commit.commitURL"
+      :message="commit.message"
+      :user="commit.user"
+      :userURL="commit.userURL"
+      :userAvatarURL="commit.userAvatarURL"
+      :date="formatDate(commit.date)"
       :sha="trimSHA(commit.sha)"
     />
   </section>
@@ -65,9 +65,6 @@ export default {
     formatTime(num) {
       return num <= 9 ? `0${num}` : `${num}`;
     },
-  },
-  created() {
-    this.commits.then((res) => (this.data = res.data));
   },
 };
 </script>
