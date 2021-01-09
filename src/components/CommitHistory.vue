@@ -1,36 +1,27 @@
 <template>
   <section class="list-group">
-    <div
+    <Commit
+      class="list-group-item list-group-item-action text-start
+    align-middle"
       v-for="(commit, i) in data"
       :key="i"
-      class="list-group-item list-group-item-action text-start align-middle"
-    >
-      <a :href="commit.html_url" target="_blank" rel="noopener noreferrer">
-        {{ commit.commit.message }}
-      </a>
-      <div>
-        <p class="my-0">
-          <a
-            :href="commit.committer.html_url"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><b>{{ commit.author.login }}</b></a
-          >
-          committed on {{ formatDate(commit.commit.author.date) }} -
-          <a
-            :href="commit.committer.html_url"
-            target="_blank"
-            rel="noopener noreferrer"
-            >{{ trimSHA(commit.sha) }}</a
-          >
-        </p>
-      </div>
-    </div>
+      :commitURL="commit.html_url"
+      :message="commit.commit.message"
+      :user="commit.author.login"
+      :userURL="commit.committer.html_url"
+      :date="formatDate(commit.commit.author.date)"
+      :sha="trimSHA(commit.sha)"
+    />
   </section>
 </template>
 
 <script>
+import Commit from './Commit';
+
 export default {
+  components: {
+    Commit,
+  },
   props: ['commits'],
   data() {
     return {
@@ -72,17 +63,10 @@ export default {
     },
     formatTime(num) {
       return num <= 9 ? `0${num}` : `${num}`;
+    },
   },
-  beforeMount() {
+  created() {
     this.commits.then((res) => (this.data = res.data));
   },
 };
 </script>
-
-<style>
-a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-}
-</style>
