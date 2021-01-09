@@ -18,7 +18,6 @@ function getFromGithub(
   const path = [baseURL, resource, username, repository, endpoint]
     .filter((el) => el !== null)
     .join('/');
-  console.log(path);
   return axios(path, axiosConfig);
 }
 
