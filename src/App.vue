@@ -1,4 +1,5 @@
 <template>
+  <div id="app" class="container-md">
     <h1>Commit history of {{ username }}/{{ repository }}</h1>
     <CommitHistory :commits="commits" />
   </div>

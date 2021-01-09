@@ -1,18 +1,19 @@
 <template>
-  <section>
-    <div v-for="(commit, i) in data" :key="i">
-      <p>
-        {{ commit.author.login }}
-      </p>
-      <p>
-        {{ commit.commit.author.date }}
-      </p>
-      <p>
+  <section class="list-group">
+    <div
+      v-for="(commit, i) in data"
+      :key="i"
+      class="list-group-item list-group-item-action text-start align-middle"
+    >
+      <h3>
         {{ commit.commit.message }}
-      </p>
-      <p>
-        {{ commit.sha }}
-      </p>
+      </h3>
+      <div>
+        <p class="my-0">
+          <b>{{ commit.author.login }}</b> committed on
+          <b>{{ formatDate(commit.commit.author.date) }}</b> - {{ commit.sha }}
+        </p>
+      </div>
     </div>
   </section>
 </template>
@@ -24,6 +25,33 @@ export default {
     return {
       data: null,
     };
+  },
+  methods: {
+    formatDate(date) {
+      const newDate = new Date(Date.parse(date));
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+
+      const mdy = `${
+        months[newDate.getUTCMonth()]
+      } ${newDate.getUTCDate()}, ${newDate.getUTCFullYear()}`;
+
+      const time = `${newDate.getUTCHours()}:${newDate.getUTCMinutes()}`;
+
+      return `${mdy} at ${time}`;
+    },
   },
   beforeMount() {
     this.commits.then((res) => (this.data = res.data));
