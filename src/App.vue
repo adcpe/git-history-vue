@@ -1,6 +1,11 @@
 <template>
   <div id="app" class="container-md">
-    <h1>Commit history of {{ username }}/{{ repository }}</h1>
+    <h1>
+      Commit history of
+      <a :href="url" target="_blank" rel="noopener noreferrer"
+        ><b>{{ username }}/{{ repository }}</b></a
+      >
+    </h1>
     <CommitHistory :commits="commits" />
   </div>
 </template>
@@ -19,6 +24,7 @@ export default {
       commits: getCommitHistory(),
       username: username,
       repository: repository,
+      url: `https://github.com/${username}/${repository}/`,
     };
   },
 };
