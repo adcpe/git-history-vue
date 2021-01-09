@@ -8,7 +8,7 @@
 <script>
 import Title from './components/Title';
 import CommitHistory from './components/CommitHistory';
-import { getCommitHistory, username, repository } from './utils/apiCalls';
+import { getFromGithub } from './utils/apiCalls';
 
 export default {
   name: 'App',
@@ -18,11 +18,20 @@ export default {
   },
   data() {
     return {
-      commits: getCommitHistory(),
-      username: username,
-      repository: repository,
-      url: `https://github.com/${username}/${repository}/`,
+      username: 'andres-dc',
+      repository: 'ftf-test',
+      commits: '',
+      url: '',
     };
+  },
+  created() {
+    this.commits = getFromGithub(
+      'repos',
+      this.username,
+      this.repository,
+      'commits'
+    );
+    this.url = `https://github.com/${this.username}/${this.repository}/`;
   },
 };
 </script>
