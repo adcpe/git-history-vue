@@ -5,13 +5,24 @@
       :key="i"
       class="list-group-item list-group-item-action text-start align-middle"
     >
-      <h3>
+      <a :href="commit.html_url" target="_blank" rel="noopener noreferrer">
         {{ commit.commit.message }}
-      </h3>
+      </a>
       <div>
         <p class="my-0">
-          <b>{{ commit.author.login }}</b> committed on
-          <b>{{ formatDate(commit.commit.author.date) }}</b> - {{ commit.sha }}
+          <a
+            :href="commit.committer.html_url"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><b>{{ commit.author.login }}</b></a
+          >
+          committed on {{ formatDate(commit.commit.author.date) }} -
+          <a
+            :href="commit.committer.html_url"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ trimSHA(commit.sha) }}</a
+          >
         </p>
       </div>
     </div>
@@ -52,6 +63,9 @@ export default {
 
       return `${mdy} at ${time}`;
     },
+    trimSHA(sha) {
+      return sha.slice(0, 7);
+    },
   },
   beforeMount() {
     this.commits.then((res) => (this.data = res.data));
@@ -59,4 +73,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+</style>
