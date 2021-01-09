@@ -1,24 +1,48 @@
 <template>
-  <div class="list-group-item list-group-item-action text-start align-middle">
-    <a :href="commitURL" target="_blank" rel="noopener noreferrer">
-      {{ message }}
-    </a>
-    <div>
+  <div
+    class="d-flex flex-row list-group-item list-group-item-action text-start align-items-center justify-content-between"
+  >
+    <a :href="userURL" target="_blank" rel="noopener noreferrer">
+      <img :src="userAvatarURL" class="rounded-circle mx-1" :alt="user"
+    /></a>
+
+    <div class=" flex-grow-1 align-self-center mx-1">
+      <a
+        :href="commitURL"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="my-1"
+      >
+        {{ message }}
+      </a>
       <p class="my-0">
         <a :href="userURL" target="_blank" rel="noopener noreferrer"
           ><b>{{ user }}</b></a
         >
-        committed on {{ date }} -
-        <a :href="commitURL" target="_blank" rel="noopener noreferrer">{{
-          sha
-        }}</a>
+        committed on {{ date }}
       </p>
     </div>
+
+    <a :href="commitURL" target="_blank" rel="noopener noreferrer">{{ sha }}</a>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['commitURL', 'message', 'user', 'userURL', 'date', 'sha'],
+  props: [
+    'commitURL',
+    'message',
+    'user',
+    'userURL',
+    'userAvatarURL',
+    'date',
+    'sha',
+  ],
 };
 </script>
+
+<style scoped>
+img {
+  height: 50px;
+}
+</style>

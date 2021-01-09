@@ -8,7 +8,8 @@
       :commitURL="commit.html_url"
       :message="commit.commit.message"
       :user="commit.author.login"
-      :userURL="commit.committer.html_url"
+      :userURL="commit.author.html_url"
+      :userAvatarURL="commit.author.avatar_url"
       :date="formatDate(commit.commit.author.date)"
       :sha="trimSHA(commit.sha)"
     />
