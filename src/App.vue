@@ -27,6 +27,9 @@ export default {
       datos: {
         owner: null,
         name: null,
+        defaultBranch: null,
+        activeBranch: null,
+        branches: [],
         commits: [],
       },
       url: `https://github.com/${owner}/${repository}`,
@@ -36,6 +39,39 @@ export default {
     await getFromGithub('repos', owner, repository).then((res) => {
       this.datos.owner = res.data.owner.login;
       this.datos.name = res.data.name;
+      this.datos.defaultBranch = res.data.default_branch;
+      this.datos.activeBranch = res.data.default_branch;
+    });
+
+    // get commit history from default branch
+    await getFromGithub(
+      'repos',
+      owner,
+      repository,
+      `commits?sha=${this.datos.activeBranch}`
+    ).then((res) => {
+      res.data.forEach((el) => {
+        const commit = {
+          commitURL: el.html_url,
+          message: el.commit.message,
+          user: el.author.login,
+          userURL: el.author.html_url,
+          userAvatarURL: el.author.avatar_url,
+          date: el.commit.author.date,
+          sha: el.sha,
+        };
+
+        this.datos.commits.push(commit);
+      });
+    });
+
+    // get all branches except for default
+    await getFromGithub('repos', owner, repository, 'branches').then((res) => {
+      res.data.forEach((el) => {
+        if (el.name !== this.datos.defaultBranch) {
+          this.datos.branches.push(el.name);
+        }
+      });
     });
   },
 };
