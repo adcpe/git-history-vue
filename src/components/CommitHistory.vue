@@ -1,8 +1,6 @@
 <template>
   <section class="list-group">
     <Commit
-      class="list-group-item list-group-item-action text-start
-    align-middle"
       v-for="(commit, i) in commits"
       :key="i"
       :commitURL="commit.commitURL"
