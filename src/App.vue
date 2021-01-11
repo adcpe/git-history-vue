@@ -34,7 +34,8 @@ export default {
       url: `https://github.com/${owner}/${repository}`,
     };
   },
-  async created() {
+  methods: {
+    async fetchAllData() {
     await getFromGithub('repos', owner, repository).then((res) => {
       this.state.owner = res.data.owner.login;
       this.state.name = res.data.name;
@@ -63,14 +64,20 @@ export default {
       });
     });
 
-    // get all branches except for default
-    await getFromGithub('repos', owner, repository, 'branches').then((res) => {
+      // get all branches except for current
+      await getFromGithub('repos', owner, repository, 'branches').then(
+        (res) => {
       res.data.forEach((el) => {
         if (el.name !== this.state.currentBranch) {
           this.state.branches.push(el.name);
         }
       });
-    });
+        }
+      );
+    },
+  },
+  created() {
+    this.fetchAllData();
   },
 };
 </script>
