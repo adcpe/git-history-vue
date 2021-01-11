@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container mt-4">
-    <Title :url="url" :owner="state.owner" :repository="state.name" />
-    <CommitHistory :commits="state.commits" />
+    <Title :url="url" :owner="owner" :repository="name" />
+    <CommitHistory :commits="commits" />
     <Footer />
   </div>
 </template>
@@ -24,22 +24,23 @@ export default {
   },
   data() {
     return {
-      state: {
         owner: null,
         name: null,
         currentBranch: null,
         branches: [],
         commits: [],
-      },
       url: `https://github.com/${owner}/${repository}`,
     };
   },
   methods: {
+    changeCurrentBranch(branch) {
+      this.currentBranch = branch;
+    },
     async fetchAllData() {
     await getFromGithub('repos', owner, repository).then((res) => {
-      this.state.owner = res.data.owner.login;
-      this.state.name = res.data.name;
-      this.state.currentBranch = res.data.default_branch;
+        this.owner = res.data.owner.login;
+        this.name = res.data.name;
+        this.currentBranch = res.data.default_branch;
     });
 
     // get commit history from default branch
@@ -47,7 +48,7 @@ export default {
       'repos',
       owner,
       repository,
-      `commits?sha=${this.state.currentBranch}`
+        `commits?sha=${this.currentBranch}`
     ).then((res) => {
       res.data.forEach((el) => {
         const commit = {
@@ -60,7 +61,7 @@ export default {
           sha: el.sha,
         };
 
-        this.state.commits.push(commit);
+          this.commits.push(commit);
       });
     });
 
@@ -68,8 +69,8 @@ export default {
       await getFromGithub('repos', owner, repository, 'branches').then(
         (res) => {
       res.data.forEach((el) => {
-        if (el.name !== this.state.currentBranch) {
-          this.state.branches.push(el.name);
+            if (el.name !== this.currentBranch) {
+              this.branches.push(el.name);
         }
       });
         }
