@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="m-0">
     Commit history of
     <a :href="url" target="_blank" rel="noopener noreferrer"
       ><b>{{ owner }}/{{ repository }}</b></a
@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: left;
 }
 </style>

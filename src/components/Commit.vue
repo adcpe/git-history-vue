@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-row list-group-item list-group-item-action text-start align-items-center justify-content-between"
+    class="d-flex flex-row list-group-item list-group-item-action text-start align-items-center justify-content-between text-left"
   >
     <a :href="userURL" target="_blank" rel="noopener noreferrer">
       <img :src="userAvatarURL" class="rounded-circle mx-1" :alt="user"
