@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="m-0">
     Commit history of
     <a :href="url" target="_blank" rel="noopener noreferrer"
       ><b>{{ owner }}/{{ repository }}</b></a

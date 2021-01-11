@@ -1,6 +1,13 @@
 <template>
   <div id="app" class="container mt-4">
-    <Title :url="url" :owner="owner" :repository="name" />
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <Title :url="url" :owner="owner" :repository="name" />
+      <BranchList
+        :currentBranch="currentBranch"
+        :branches="branches"
+        :changeCurrentBranch="changeCurrentBranch"
+      />
+    </div>
     <CommitHistory :commits="commits" />
     <Footer />
   </div>
@@ -9,6 +16,7 @@
 <script>
 import Title from './components/Title';
 import CommitHistory from './components/CommitHistory';
+import BranchList from './components/BranchList';
 import Footer from './components/Footer';
 import { getFromGithub } from './utils/apiCalls';
 
@@ -19,6 +27,7 @@ export default {
   name: 'App',
   components: {
     Title,
+    BranchList,
     CommitHistory,
     Footer,
   },
@@ -33,8 +42,9 @@ export default {
     };
   },
   methods: {
-    changeCurrentBranch(branch) {
+    async changeCurrentBranch(branch) {
       this.currentBranch = branch;
+      await this.fetchAllData();
     },
     async getDefaultBranch() {
       await getFromGithub('repos', owner, repository).then((res) => {
@@ -42,6 +52,7 @@ export default {
       });
     },
     async getCommits() {
+      this.commits = [];
       await getFromGithub(
         'repos',
         owner,
@@ -64,6 +75,7 @@ export default {
       });
     },
     async getBranches() {
+      this.branches = [];
       await getFromGithub('repos', owner, repository, 'branches').then(
         (res) => {
           res.data.forEach((el) => {
@@ -75,13 +87,13 @@ export default {
       );
     },
     async fetchAllData() {
-      await this.getDefaultBranch();
       await this.getCommits();
       await this.getBranches();
     },
   },
-  created() {
-    this.fetchAllData();
+  async created() {
+    await this.getDefaultBranch();
+    await this.fetchAllData();
   },
 };
 </script>
