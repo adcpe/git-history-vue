@@ -24,11 +24,11 @@ export default {
   },
   data() {
     return {
-        owner: null,
-        name: null,
-        currentBranch: null,
-        branches: [],
-        commits: [],
+      owner: owner,
+      name: repository,
+      currentBranch: null,
+      branches: [],
+      commits: [],
       url: `https://github.com/${owner}/${repository}`,
     };
   },
@@ -36,45 +36,48 @@ export default {
     changeCurrentBranch(branch) {
       this.currentBranch = branch;
     },
-    async fetchAllData() {
-    await getFromGithub('repos', owner, repository).then((res) => {
-        this.owner = res.data.owner.login;
-        this.name = res.data.name;
+    async getDefaultBranch() {
+      await getFromGithub('repos', owner, repository).then((res) => {
         this.currentBranch = res.data.default_branch;
-    });
-
-    // get commit history from default branch
-    await getFromGithub(
-      'repos',
-      owner,
-      repository,
+      });
+    },
+    async getCommits() {
+      await getFromGithub(
+        'repos',
+        owner,
+        repository,
         `commits?sha=${this.currentBranch}`
-    ).then((res) => {
-      res.data.forEach((el) => {
-        const commit = {
-          commitURL: el.html_url,
-          message: el.commit.message,
-          user: el.author.login,
-          userURL: el.author.html_url,
-          userAvatarURL: el.author.avatar_url,
-          date: el.commit.author.date,
-          sha: el.sha,
-        };
+      ).then((res) => {
+        res.data.forEach((el) => {
+          const commit = {
+            commitURL: el.html_url,
+            message: el.commit.message,
+            user: el.author.login,
+            userURL: el.author.html_url,
+            userAvatarURL: el.author.avatar_url,
+            date: el.commit.author.date,
+            sha: el.sha,
+          };
 
           this.commits.push(commit);
+        });
       });
-    });
-
-      // get all branches except for current
+    },
+    async getBranches() {
       await getFromGithub('repos', owner, repository, 'branches').then(
         (res) => {
-      res.data.forEach((el) => {
+          res.data.forEach((el) => {
             if (el.name !== this.currentBranch) {
               this.branches.push(el.name);
-        }
-      });
+            }
+          });
         }
       );
+    },
+    async fetchAllData() {
+      await this.getDefaultBranch();
+      await this.getCommits();
+      await this.getBranches();
     },
   },
   created() {
