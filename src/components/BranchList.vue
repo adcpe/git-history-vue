@@ -2,11 +2,11 @@
   <div>
     <button
       type="button"
-      class="btn btn-primary align-self-center"
+      class="btn btn-primary bg-info border-info my-2"
       data-toggle="modal"
       data-target="#branchModal"
     >
-      On branch: {{ currentBranch }}
+      On branch: <b>{{ currentBranch }}</b>
     </button>
 
     <div
@@ -33,11 +33,11 @@
           <div class="modal-body">
             <div class="list-group">
               <button
-                class="list-group-item list-group-item-action active"
+                class="list-group-item list-group-item-action bg-info border-info active"
                 data-dismiss="modal"
                 :key="0"
               >
-                {{ currentBranch }}
+                <b>{{ currentBranch }}</b>
               </button>
               <button
                 class="list-group-item list-group-item-action"

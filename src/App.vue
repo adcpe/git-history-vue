@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-2">
+    <div
+      class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
+    >
       <Title :url="url" :owner="owner" :repository="name" />
       <BranchList
         :currentBranch="currentBranch"

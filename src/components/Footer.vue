@@ -6,6 +6,7 @@
         href="https://www.netlify.com/"
         target="_blank"
         rel="noopener noreferrer"
+        class="text-success"
         >Netlify</a
       >
     </p>
