@@ -7,6 +7,13 @@
 - Axios
 - Github API
 
+## Preparation
+
+- Make a copy of `.env.example` named `.env`
+- Input your own Username and Personal Access Token from Github on `.env`.
+
+NOTE: The Personal Access Token must have the repo scope checked.
+
 ## Project setup
 
 ```
