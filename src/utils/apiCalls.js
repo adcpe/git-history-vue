@@ -9,7 +9,7 @@ const axiosConfig = {
 
 const baseURL = 'https://api.github.com';
 
-function getFromGithub(
+export function getFromGithub(
   resource,
   username = null,
   repository = null,
@@ -20,5 +20,3 @@ function getFromGithub(
     .join('/');
   return axios(path, axiosConfig);
 }
-
-export { getFromGithub };

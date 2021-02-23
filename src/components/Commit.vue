@@ -19,11 +19,13 @@
         <a :href="userURL" target="_blank" rel="noopener noreferrer"
           ><b>{{ user }}</b></a
         >
-        committed on {{ date }}
+        committed on {{ datetime }}
       </p>
     </div>
 
-    <a :href="commitURL" target="_blank" rel="noopener noreferrer">{{ sha }}</a>
+    <a :href="commitURL" target="_blank" rel="noopener noreferrer">{{
+      trimSHA(sha)
+    }}</a>
   </div>
 </template>
 
@@ -35,9 +37,14 @@ export default {
     'user',
     'userURL',
     'userAvatarURL',
-    'date',
+    'datetime',
     'sha',
   ],
+  methods: {
+    trimSHA(sha) {
+      return sha.slice(0, 7);
+    },
+  },
 };
 </script>
 
