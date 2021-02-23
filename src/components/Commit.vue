@@ -19,7 +19,7 @@
         <a :href="userURL" target="_blank" rel="noopener noreferrer"
           ><b>{{ user }}</b></a
         >
-        committed on {{ datetime }}
+        committed on {{ formatDate(date) }}
       </p>
     </div>
 
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { formatDate } from '../utils/formatDateTime';
+
 export default {
   props: [
     'commitURL',
@@ -37,10 +39,11 @@ export default {
     'user',
     'userURL',
     'userAvatarURL',
-    'datetime',
+    'date',
     'sha',
   ],
   methods: {
+    formatDate,
     trimSHA(sha) {
       return sha.slice(0, 7);
     },

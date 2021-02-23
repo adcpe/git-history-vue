@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { formatDate } from '../utils/formatDateTime';
 import Commit from './Commit';
 
 export default {
@@ -13,8 +12,5 @@ export default {
     Commit,
   },
   props: ['commits'],
-  methods: {
-    formatDate,
-  },
 };
 </script>

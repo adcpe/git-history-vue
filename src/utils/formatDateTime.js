@@ -30,5 +30,5 @@ export function formatDate(datetime) {
     clientDate.getUTCMinutes()
   )}`;
 
-  return `${dmy} at ${time}`;
+  return `${dmy} ${time}`;
 }
