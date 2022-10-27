@@ -32,14 +32,14 @@
             <div class="list-group">
               <button
                 class="list-group-item list-group-item-action bg-info border-info active"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 :key="0"
               >
                 <b>{{ currentBranch }}</b>
               </button>
               <button
                 class="list-group-item list-group-item-action"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 v-for="(branch, i) in branches"
                 :key="i + 1"
                 @click="changeCurrentBranch(branch)"
