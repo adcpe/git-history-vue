@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  props: ['url', 'owner', 'repository'],
-};
+  props: ['url', 'owner', 'repository']
+}
 </script>
 
 <style scoped>

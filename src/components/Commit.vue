@@ -7,12 +7,7 @@
     /></a>
 
     <div class=" flex-grow-1 align-self-center mx-1">
-      <a
-        :href="commitURL"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="my-1"
-      >
+      <a :href="commitURL" target="_blank" rel="noopener noreferrer" class="my-1">
         {{ message }}
       </a>
       <p class="my-0">
@@ -29,16 +24,8 @@
 
 <script>
 export default {
-  props: [
-    'commitURL',
-    'message',
-    'user',
-    'userURL',
-    'userAvatarURL',
-    'date',
-    'sha',
-  ],
-};
+  props: ['commitURL', 'message', 'user', 'userURL', 'userAvatarURL', 'date', 'sha']
+}
 </script>
 
 <style scoped>

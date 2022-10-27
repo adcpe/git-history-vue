@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container mt-4">
+  <div class="container mt-2">
     <div
       class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
     >
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import Title from './components/Title';
-import CommitHistory from './components/CommitHistory';
-import BranchList from './components/BranchList';
-import Footer from './components/Footer';
-import { getFromGithub } from './utils/apiCalls';
+import Title from './components/Title.vue'
+import CommitHistory from './components/CommitHistory.vue'
+import BranchList from './components/BranchList.vue'
+import Footer from './components/Footer.vue'
+import { getFromGithub } from './utils/apiCalls'
 
-const owner = 'andres-dc';
-const repository = 'ftf-test';
+const owner = 'andres-dc'
+const repository = 'git-history-vue'
 
 export default {
   name: 'App',
@@ -31,7 +31,7 @@ export default {
     Title,
     BranchList,
     CommitHistory,
-    Footer,
+    Footer
   },
   data() {
     return {
@@ -40,64 +40,59 @@ export default {
       currentBranch: null,
       branches: [],
       commits: [],
-      url: `https://github.com/${owner}/${repository}`,
-    };
+      url: `https://github.com/${owner}/${repository}`
+    }
   },
   methods: {
     async changeCurrentBranch(branch) {
-      this.currentBranch = branch;
-      await this.fetchAllData();
+      this.currentBranch = branch
+      await this.fetchAllData()
     },
     async getDefaultBranch() {
       await getFromGithub('repos', owner, repository).then((res) => {
-        this.currentBranch = res.data.default_branch;
-      });
+        this.currentBranch = res.data.default_branch
+      })
     },
     async getCommits() {
-      this.commits = [];
-      await getFromGithub(
-        'repos',
-        owner,
-        repository,
-        `commits?sha=${this.currentBranch}`
-      ).then((res) => {
-        res.data.forEach((el) => {
-          const commit = {
-            commitURL: el.html_url,
-            message: el.commit.message,
-            user: el.author.login,
-            userURL: el.author.html_url,
-            userAvatarURL: el.author.avatar_url,
-            date: el.commit.author.date,
-            sha: el.sha,
-          };
-
-          this.commits.push(commit);
-        });
-      });
-    },
-    async getBranches() {
-      this.branches = [];
-      await getFromGithub('repos', owner, repository, 'branches').then(
+      this.commits = []
+      await getFromGithub('repos', owner, repository, `commits?sha=${this.currentBranch}`).then(
         (res) => {
           res.data.forEach((el) => {
-            if (el.name !== this.currentBranch) {
-              this.branches.push(el.name);
+            const commit = {
+              commitURL: el.html_url,
+              message: el.commit.message,
+              user: el.author.login,
+              userURL: el.author.html_url,
+              userAvatarURL: el.author.avatar_url,
+              date: el.commit.author.date,
+              sha: el.sha
             }
-          });
+
+            this.commits.push(commit)
+          })
         }
-      );
+      )
+    },
+    async getBranches() {
+      this.branches = []
+      await getFromGithub('repos', owner, repository, 'branches').then((res) => {
+        res.data.forEach((el) => {
+          if (el.name !== this.currentBranch) {
+            this.branches.push(el.name)
+          }
+        })
+      })
     },
     async fetchAllData() {
-      await this.getCommits();
-      await this.getBranches();
-    },
+      await this.getCommits()
+      await this.getBranches()
+    }
   },
   async created() {
-    await this.getDefaultBranch();
-    await this.fetchAllData();
-  },
-};
+    await this.getDefaultBranch()
+    await this.fetchAllData()
+  }
+}
 </script>
 
 <style>
@@ -107,7 +102,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   font-size: 0.9rem;
 }
 

@@ -22,12 +22,10 @@
             <h5 class="modal-title" id="branchModalLabel">Branches</h5>
             <button
               type="button"
-              class="close"
-              data-dismiss="modal"
+              class="btn-close"
+              data-bs-dismiss="modal"
               aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            ></button>
           </div>
 
           <div class="modal-body">
@@ -58,6 +56,6 @@
 
 <script>
 export default {
-  props: ['currentBranch', 'branches', 'changeCurrentBranch'],
-};
+  props: ['currentBranch', 'branches', 'changeCurrentBranch']
+}
 </script>
