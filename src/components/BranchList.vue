@@ -3,8 +3,8 @@
     <button
       type="button"
       class="btn btn-primary bg-info border-info my-2"
-      data-toggle="modal"
-      data-target="#branchModal"
+      data-bs-toggle="modal"
+      data-bs-target="#branchModal"
     >
       On branch: <b>{{ currentBranch }}</b>
     </button>
