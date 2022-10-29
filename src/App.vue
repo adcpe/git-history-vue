@@ -9,8 +9,13 @@
         :branches="branches"
         :changeCurrentBranch="changeCurrentBranch"
       />
+      <Paginator
+        :activePage="activePage"
+        :numberOfPages="numberOfPages"
+        @changePage="(n) => this.activePage = n"
+      />
     </div>
-    <CommitHistory :commits="commits" />
+    <CommitHistory :commits="showPageCommits(allCommits, activePage, numberOfPages)" />
     <Footer />
   </div>
 </template>
@@ -20,6 +25,7 @@ import Title from './components/Title.vue'
 import CommitHistory from './components/CommitHistory.vue'
 import BranchList from './components/BranchList.vue'
 import Footer from './components/Footer.vue'
+import Paginator from './components/Paginator.vue'
 import { getFromGithub } from './utils/apiCalls'
 
 const owner = 'andres-dc'
@@ -31,7 +37,8 @@ export default {
     Title,
     BranchList,
     CommitHistory,
-    Footer
+    Footer,
+    Paginator
   },
   data() {
     return {
@@ -39,7 +46,9 @@ export default {
       name: repository,
       currentBranch: null,
       branches: [],
-      commits: [],
+      allCommits: [],
+      activePage: 1,
+      numberOfPages: 1,
       url: `https://github.com/${owner}/${repository}`
     }
   },
@@ -53,10 +62,18 @@ export default {
         this.currentBranch = res.data.default_branch
       })
     },
+    showPageCommits(commits, currPage, numberOfPages) {
+      return currPage === 1
+        ? commits.slice(0, 10)
+        : currPage !== numberOfPages
+        ? commits.slice((currPage - 1) * 10, currPage * 10)
+        : commits.slice((currPage - 1) * 10)
+    },
     async getCommits() {
       this.commits = []
       await getFromGithub('repos', owner, repository, `commits?sha=${this.currentBranch}`).then(
         (res) => {
+          this.numberOfPages = Math.floor(res.data.length / 10)
           res.data.forEach((el) => {
             const commit = {
               commitURL: el.html_url,
@@ -68,7 +85,7 @@ export default {
               sha: el.sha
             }
 
-            this.commits.push(commit)
+            this.allCommits.push(commit)
           })
         }
       )
