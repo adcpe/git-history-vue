@@ -7,9 +7,9 @@ export default {
 <template>
   <h1 class="m-0">
     Commit history of
-    <a :href="url" target="_blank" rel="noopener noreferrer"
-      ><b>{{ owner }}/{{ repository }}</b></a
-    >
+    <a :href="url" target="_blank" rel="noopener noreferrer">
+      <b>{{ owner }}/{{ repository }}</b>
+    </a>
   </h1>
 </template>
 
