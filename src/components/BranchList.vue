@@ -1,7 +1,5 @@
-<script>
-export default {
-  props: ['currentBranch', 'branches', 'changeCurrentBranch']
-}
+<script setup>
+const props = defineProps(['currentBranch', 'branches', 'changeCurrentBranch'])
 </script>
 
 <template>

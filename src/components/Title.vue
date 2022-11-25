@@ -1,7 +1,5 @@
-<script>
-export default {
-  props: ['url', 'owner', 'repository']
-}
+<script setup>
+const props = defineProps(['url', 'owner', 'repository'])
 </script>
 
 <template>

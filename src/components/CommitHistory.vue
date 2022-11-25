@@ -1,41 +1,8 @@
-<script>
+<script setup>
+import { formatDate, trimSHA } from '../utils/helpers'
 import Commit from './Commit.vue'
 
-export default {
-  components: {
-    Commit
-  },
-  props: ['commits'],
-  data() {
-    return {
-      data: null,
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    }
-  },
-  methods: {
-    formatDate(date) {
-      const newDate = Date.parse(date)
-      const offset = new Date(newDate).getTimezoneOffset() * 60 * 1000
-      const clientDate = new Date(newDate - offset)
-
-      const mdy = `${
-        this.months[clientDate.getUTCMonth()]
-      } ${clientDate.getUTCDate()}, ${clientDate.getUTCFullYear()}`
-
-      const time = `${this.formatTime(clientDate.getUTCHours())}:${this.formatTime(
-        clientDate.getUTCMinutes()
-      )}`
-
-      return `${mdy} at ${time}`
-    },
-    trimSHA(sha) {
-      return sha.slice(0, 7)
-    },
-    formatTime(num) {
-      return num <= 9 ? `0${num}` : `${num}`
-    }
-  }
-}
+const props = defineProps(['commits'])
 </script>
 
 <template>

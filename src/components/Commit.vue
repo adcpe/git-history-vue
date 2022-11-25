@@ -1,7 +1,13 @@
-<script>
-export default {
-  props: ['commitURL', 'message', 'user', 'userURL', 'userAvatarURL', 'date', 'sha']
-}
+<script setup>
+const props = defineProps([
+  'commitURL',
+  'message',
+  'user',
+  'userURL',
+  'userAvatarURL',
+  'date',
+  'sha'
+])
 </script>
 
 <template>

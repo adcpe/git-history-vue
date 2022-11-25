@@ -1,7 +1,5 @@
-<script>
-export default {
-  props: ['activePage', 'numberOfPages']
-}
+<script setup>
+const props = defineProps(['activePage', 'numberOfPages'])
 </script>
 
 <template>
