@@ -9,11 +9,9 @@ const axiosConfig = {
 
 const baseURL = 'https://api.github.com'
 
-function getFromGithub(resource, username = null, repository = null, endpoint = null) {
+export function getFromGithub(resource, username = null, repository = null, endpoint = null) {
   const path = [baseURL, resource, username, repository, endpoint]
     .filter((el) => el !== null)
     .join('/')
   return axios(path, axiosConfig)
 }
-
-export { getFromGithub }

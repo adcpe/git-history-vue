@@ -1,25 +1,3 @@
-<template>
-  <div class="container mt-2">
-    <div
-      class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
-    >
-      <Title :url="url" :owner="owner" :repository="name" />
-      <BranchList
-        :currentBranch="currentBranch"
-        :branches="branches"
-        :changeCurrentBranch="changeCurrentBranch"
-      />
-      <Paginator
-        :activePage="activePage"
-        :numberOfPages="numberOfPages"
-        @changePage="(n) => this.activePage = n"
-      />
-    </div>
-    <CommitHistory :commits="showPageCommits(allCommits, activePage, numberOfPages)" />
-    <Footer />
-  </div>
-</template>
-
 <script>
 import Title from './components/Title.vue'
 import CommitHistory from './components/CommitHistory.vue'
@@ -28,7 +6,7 @@ import Footer from './components/Footer.vue'
 import Paginator from './components/Paginator.vue'
 import { getFromGithub } from './utils/apiCalls'
 
-const owner = 'andres-dc'
+const owner = 'adcpe'
 const repository = 'git-history-vue'
 
 export default {
@@ -111,6 +89,25 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="container mt-2">
+    <div
+      class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
+      <Title :url="url" :owner="owner" :repository="name" />
+      <BranchList
+        :currentBranch="currentBranch"
+        :branches="branches"
+        :changeCurrentBranch="changeCurrentBranch" />
+      <Paginator
+        :activePage="activePage"
+        :numberOfPages="numberOfPages"
+        @changePage="(n) => (this.activePage = n)" />
+    </div>
+    <CommitHistory :commits="showPageCommits(allCommits, activePage, numberOfPages)" />
+    <Footer />
+  </div>
+</template>
 
 <style>
 #app {

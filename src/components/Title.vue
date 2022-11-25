@@ -1,3 +1,9 @@
+<script>
+export default {
+  props: ['url', 'owner', 'repository']
+}
+</script>
+
 <template>
   <h1 class="m-0">
     Commit history of
@@ -6,12 +12,6 @@
     >
   </h1>
 </template>
-
-<script>
-export default {
-  props: ['url', 'owner', 'repository']
-}
-</script>
 
 <style scoped>
 h1 {

@@ -1,19 +1,3 @@
-<template>
-  <section class="list-group">
-    <Commit
-      v-for="(commit, i) in commits"
-      :key="i"
-      :commitURL="commit.commitURL"
-      :message="commit.message"
-      :user="commit.user"
-      :userURL="commit.userURL"
-      :userAvatarURL="commit.userAvatarURL"
-      :date="formatDate(commit.date)"
-      :sha="trimSHA(commit.sha)"
-    />
-  </section>
-</template>
-
 <script>
 import Commit from './Commit.vue'
 
@@ -53,3 +37,18 @@ export default {
   }
 }
 </script>
+
+<template>
+  <section class="list-group">
+    <Commit
+      v-for="(commit, i) in commits"
+      :key="i"
+      :commitURL="commit.commitURL"
+      :message="commit.message"
+      :user="commit.user"
+      :userURL="commit.userURL"
+      :userAvatarURL="commit.userAvatarURL"
+      :date="formatDate(commit.date)"
+      :sha="trimSHA(commit.sha)" />
+  </section>
+</template>

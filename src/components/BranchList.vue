@@ -1,11 +1,16 @@
+<script>
+export default {
+  props: ['currentBranch', 'branches', 'changeCurrentBranch']
+}
+</script>
+
 <template>
   <div>
     <button
       type="button"
       class="btn btn-primary bg-info border-info my-2"
       data-bs-toggle="modal"
-      data-bs-target="#branchModal"
-    >
+      data-bs-target="#branchModal">
       On branch: <b>{{ currentBranch }}</b>
     </button>
 
@@ -14,8 +19,7 @@
       id="branchModal"
       tabindex="-1"
       aria-labelledby="branchModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -24,8 +28,7 @@
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+              aria-label="Close"></button>
           </div>
 
           <div class="modal-body">
@@ -33,8 +36,7 @@
               <button
                 class="list-group-item list-group-item-action bg-info border-info active"
                 data-bs-dismiss="modal"
-                :key="0"
-              >
+                :key="0">
                 <b>{{ currentBranch }}</b>
               </button>
               <button
@@ -42,8 +44,7 @@
                 data-bs-dismiss="modal"
                 v-for="(branch, i) in branches"
                 :key="i + 1"
-                @click="changeCurrentBranch(branch)"
-              >
+                @click="changeCurrentBranch(branch)">
                 {{ branch }}
               </button>
             </div>
@@ -53,9 +54,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: ['currentBranch', 'branches', 'changeCurrentBranch']
-}
-</script>
